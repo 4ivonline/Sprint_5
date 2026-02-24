@@ -5,7 +5,7 @@ import java.util.List;
 
 public class AlexLion extends Lion {
 
-    public AlexLion(FelineInterface feline) throws Exception {
+    public AlexLion(Feline feline) throws Exception {
         super("Самец", feline);
     }
 

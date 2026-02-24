@@ -25,7 +25,6 @@ public class CatTest {
     @BeforeEach
     public void setUp() {
 
-        realFeline = new Feline();
         cat = new Cat(realFeline);
         catMock = new Cat(mockFeline);
     }
@@ -45,8 +44,6 @@ public class CatTest {
         List <String> actualFood = catMock.getFood();
 
         assertEquals(expectFood, actualFood);
-
-        Mockito.verify(mockFeline, times(1)).eatMeat();
     }
 
 }

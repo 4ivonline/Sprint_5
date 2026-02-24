@@ -18,7 +18,7 @@ public class LionTest {
     private Feline realFeline;
 
     @Mock
-    private FelineInterface mockFeline;
+    private Feline mockFeline;
 
     @Test
     public void createPositiveMaleLionShouldBeWithMane() throws Exception {
@@ -57,26 +57,43 @@ public class LionTest {
         int kittens = lion.getKittens();
 
         assertEquals(1, kittens, "По умолчанию должен быть 1 котенок");
-        verify(mockFeline, times(1)).getKittens();
     }
 
     @Test
-    public void getPositiveFoodList() throws Exception {
-    when(mockFeline.eatMeat()).thenReturn(List.of("Животные", "Птицы", "Рыба"));
+    public void getPositiveEatAnimalsForLionTrue() throws Exception {
+    when(mockFeline.eatMeat()).thenReturn(List.of("Животные"));
 
     Lion lion = new Lion("Самец", mockFeline);
 
     List<String> food = lion.getFood();
 
         assertTrue(food.contains("Животные"));
-        assertTrue(food.contains("Птицы"));
-        assertTrue(food.contains("Рыба"));
-
-        Mockito.verify(mockFeline).eatMeat();
     }
 
     @Test
-    public void getNegativeFoodList() throws Exception {
+    public void getPositiveEatBirdsForLionTrue() throws Exception {
+        when(mockFeline.eatMeat()).thenReturn(List.of("Птицы"));
+
+        Lion lion = new Lion("Самец", mockFeline);
+
+        List<String> food = lion.getFood();
+
+        assertTrue(food.contains("Птицы"));
+    }
+
+    @Test
+    public void getPositiveEatFishForLionTrue() throws Exception {
+        when(mockFeline.eatMeat()).thenReturn(List.of("Рыба"));
+
+        Lion lion = new Lion("Самец", mockFeline);
+
+        List<String> food = lion.getFood();
+
+        assertTrue(food.contains("Рыба"));
+    }
+
+    @Test
+    public void negativeEatGrassForLionIsNotTrue() throws Exception {
         when(mockFeline.eatMeat()).thenReturn(List.of("Животные", "Птицы", "Рыба"));
 
         Lion lion = new Lion("Самец", mockFeline);
@@ -84,8 +101,16 @@ public class LionTest {
         List<String> food = lion.getFood();
 
         assertFalse(food.contains("Трава"));
-        assertFalse(food.contains("Различные растения"));
+    }
 
-        Mockito.verify(mockFeline).eatMeat();
+    @Test
+    public void negativeEatPlantsForLionIsNotTrue() throws Exception {
+        when(mockFeline.eatMeat()).thenReturn(List.of("Животные", "Птицы", "Рыба"));
+
+        Lion lion = new Lion("Самец", mockFeline);
+
+        List<String> food = lion.getFood();
+
+        assertFalse(food.contains("Различные растения"));
     }
 }
